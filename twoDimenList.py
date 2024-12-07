@@ -1,5 +1,5 @@
 import numpy as np
-
+import reedsolo
 class qrCode():
     """
     qr code is always in byte mode
@@ -109,14 +109,20 @@ class qrCode():
             bitCharacters += 1
 
         binary += "0000"
-        
+
+        paddingBytes = [" 11101100", " 00010001"]
+        paddingIndex = 0
+
         if self.qrCodeVersion == "V1":
             while bitCharacters < 17:
-                binary += " 00000000"
+                binary += paddingBytes[paddingIndex]
+                paddingIndex = (paddingIndex + 1) % 2
                 bitCharacters += 1
+
         elif self.qrCodeVersion == "V2":
             while bitCharacters < 32:
-                binary += " 00000000"
+                binary += paddingBytes[paddingIndex]
+                paddingIndex = (paddingIndex + 1) % 2
                 bitCharacters += 1
         else:
             raise Exception("qr code version not defined")
