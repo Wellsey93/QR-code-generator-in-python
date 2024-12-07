@@ -1,12 +1,12 @@
 import tkinter as tk
-import twoDimenList
+from QRCodeGeneration import qrCode
 
 class Win(tk.Frame):
 
     def __init__(self):
         super().__init__()
         self.canvas = tk.Canvas(self)
-        self.qrCode = twoDimenList.qrCode()
+        self.qrCode = qrCode()
         self.master.title("Qr Code Generator")
         self.windowSize = 400
         self.pack(fill=tk.BOTH, expand=1)
@@ -31,13 +31,7 @@ class Win(tk.Frame):
                 self.qrCode.setQrCodeVersion("V2")
 
 
-            self.qrCode.createMatrix()
-            self.qrCode.timingPatternCreation()
-            self.qrCode.applyPatterns()
-            self.qrCode.setText(input)
-            self.qrCode.setTextSize()
-            self.qrCode.textBitConverion()
-            print(self.qrCode.getText())
+            self.qrCode.createMatrix(input)
             self.textBox.destroy()
             self.textButton.destroy()
             self.displayCode()
